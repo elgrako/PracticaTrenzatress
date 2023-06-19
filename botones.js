@@ -1,23 +1,25 @@
-const catalogocontenido = document.querySelector('.catalogo-contenido');
-const carrusel = document.querySelector('.carrusel');
-const Botonant = document.getElementById('Botonant');
-const Botonsig = document.getElementById('Botonsig');
-const slideWidth = catalogocontenido.clientWidth;
-let translateValue = 0;
-let currentIndex = 0;
+window.onload = function() {
+  var carrusel = document.querySelector('.carrusel');
+  var botonAnterior = document.getElementById('Botonant');
+  var botonSiguiente = document.getElementById('Botonsig');
+  var currentIndex = 0;
 
-Botonsig.addEventListener('click', () => {
-  if (currentIndex < carrusel.childElementCount - 1) {
-    currentIndex++;
-    translateValue -= slideWidth;
-    carrusel.style.transform = `translateX(${translateValue}px)`;
-  }
-});
+  botonSiguiente.onclick = function() {
+    if (currentIndex < carrusel.children.length - 1) {
+      currentIndex++;
+      actualizarCarrusel();
+    }
+  };
 
-Botonant.addEventListener('click', () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    translateValue += slideWidth;
-    carrusel.style.transform = `translateX(${translateValue}px)`;
+  botonAnterior.onclick = function() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      actualizarCarrusel();
+    }
+  };
+
+  function actualizarCarrusel() {
+    var slideWidth = carrusel.children[currentIndex].offsetWidth;
+    carrusel.style.transform = 'translateX(-' + (currentIndex * slideWidth) + 'px)';
   }
-});
+};
